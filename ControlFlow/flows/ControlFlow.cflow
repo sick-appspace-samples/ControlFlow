@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<glue>
+    <info>
+        <usage>cflow</usage>
+    </info>
+    <blocks id="Main">
+        <block type="Provider" name="OnChangeInput1" event="Connector.DigitalIn.OnChange(newState)" createParameters="DI1" x="-208.72" y="-218.45" width="168.7688555347092" height="100.0" path="Connector.DigitalIn.OnChange">
+            <parameters/>
+        </block>
+        <block type="Function" name="myDelay" function="delayedSignal=DigitalLogic.Delay.delay(signal)" x="-38.93" y="101.76" width="120.0" height="100.0" path="DigitalLogic.Delay.delay">
+            <parameters>
+                <param name="DelayTime">
+                    <val>2000</val>
+                </param>
+            </parameters>
+        </block>
+        <block type="Consumer" name="setOutput" function="Connector.DigitalOut.set(newState)" createParameters="DO1" x="-46.24" y="276.39" width="140.90093808630394" height="100.0" path="Connector.DigitalOut.set">
+            <parameters/>
+        </block>
+        <block type="Function" name="myAnd" function="level=DigitalLogic.Gate.and(levelA,levelB,levelC,levelD)" x="-45.95" y="-23.95" width="120.0" height="100.0" path="DigitalLogic.Gate.and">
+            <parameters/>
+        </block>
+        <block type="Provider" name="OnChangeInput2" event="Connector.DigitalIn.OnChange(newState)" createParameters="DI2" x="45.6" y="-217.43" width="176.8969981238273" height="100.0" path="Connector.DigitalIn.OnChange">
+            <parameters/>
+        </block>
+    </blocks>
+    <connections>
+        <link from="myDelay:delayedSignal" to="setOutput:newState"/>
+        <link from="OnChangeInput1:newState" to="myAnd:levelA"/>
+        <link from="myAnd:level" to="myDelay:signal"/>
+        <link from="OnChangeInput2:newState" to="myAnd:levelB"/>
+    </connections>
+</glue>
